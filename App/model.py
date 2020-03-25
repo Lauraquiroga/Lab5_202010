@@ -74,8 +74,8 @@ def newDate (date, row):
     Crea una nueva estructura para almacenar los accidentes por fecha
     """
     dateNode = {"date": date, "severityMap":None,}
-    dateNode ['severityMap'] = map.newMap(11, maptype='PROBING')
-    severity = row['Severity']
+    dateNode ['severityMap'] = map.newMap(11, maptype='CHAINING')
+    severity = int(row['Severity'])
     map.put(dateNode['severityMap'],severity, 1, compareByKey)
     return dateNode
 
@@ -89,7 +89,7 @@ def addDateTree (catalog, row):
     date = strToDate(dateText,'%Y/%m/%d')
     dateNode = tree.get(catalog['dateTree'] , date, greater)
     if dateNode:
-        severity = row['Severity']
+        severity = int(row['Severity'])
         accidentCount = map.get(dateNode['severityMap'], severity, compareByKey)
         if  accidentCount:
             accidentCount+=1
