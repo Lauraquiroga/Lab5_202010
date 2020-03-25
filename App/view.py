@@ -44,7 +44,7 @@ def printMenu():
     print("2- Buscar libro por llave (titulo) ")
     print("3- Consultar cuantos libros hay alfabeticamente menores a una llave (titulo) - (rank)")
     print("4- Buscar un libro por posición de la llave (titulo) - (select)")
-    print("5- Consultar la cantidad de libros por rating para un año (YYYY) dado")
+    print("5- Consultar la cantidad de accidentes por severidad para un fecha dada (aaaa-mm-dd)")
     print("0- Salir")
 
 
@@ -74,11 +74,8 @@ def main():
             print("Recursion Limit:",sys.getrecursionlimit())
             catalog = initCatalog ()
             loadData (catalog)
-            print ('Tamaño Lista libros cargados: ' + str(lt.size(catalog['booksList'])))
-            print ('Tamaño árbol Libros por titulo: ' + str(map.size(catalog['booksTitleTree'])))
-            print ('Tamaño árbol Libros por año : ' + str(map.size(catalog['yearsTree'])))
-            print ('Altura árbol por titulo: ' + str(map.height(catalog['booksTitleTree'])))
-            print ('Altura árbol por año: ' + str(map.height(catalog['yearsTree'])))
+            print ('Tamaño árbol accidentes por fecha : ' + str(map.size(catalog['dateTree'])))
+            print ('Altura árbol por fecha: ' + str(map.height(catalog['dateTree'])))
             
         elif int(inputs[0])==2:
             title = input("Nombre del titulo a buscar: ")
@@ -99,12 +96,12 @@ def main():
             else:
                 print("Libro no encotrado en posicion: ",pos)
         elif int(inputs[0])==5:
-            year = input("Ingrese el año a consultar:")
-            response = controller.getBookByYearRating(catalog, year) 
+            date = input("Ingrese la fecha a consultar:")
+            response = controller.getAccidentByDateSeverity(catalog, date) 
             if response:
                 print(response)
             else:
-                print("No se encontraron libro para el año",year)   
+                print("No se encontraron accidenrtes para el día",date)   
         else:
             sys.exit(0)
     sys.exit(0)

@@ -121,11 +121,11 @@ def selectBookTree (catalog, pos):
     """
     return tree.select(catalog['booksTitleTree'], pos) 
 
-def getAccidentsByDateSeverity (catalog, date):
+def getAccidentByDateSeverity (catalog, date):
     """
     Retorna la cantidad de libros para un año y con un rating dado
     """
-    dateElement=tree.get(catalog['dateTree'], strToDate(dateText,'%Y/%m/%d'), greater)
+    dateElement=tree.get(catalog['dateTree'], strToDate(date,'%Y/%m/%d'), greater)
     response=''
     if dateElement:
         severityList = map.keySet(dateElement['severityMap'])

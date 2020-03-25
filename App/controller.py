@@ -88,7 +88,7 @@ def loadData (catalog):
     Carga los datos de los archivos y cargar los datos en la
     estructura de datos
     """
-    loadBooks(catalog)    
+    loadAccidents(catalog)    
 
 # Funciones llamadas desde la vista y enviadas al modelo
 
@@ -118,10 +118,10 @@ def selectBookTree(catalog, pos):
     print("Tiempo de ejecución buscar libro (rank):",t1_stop-t1_start," segundos")   
     return rank
 
-def getBookByYearRating (catalog, year):
+def getAccidentByDateSeverity (catalog, date):
     t1_start = process_time() #tiempo inicial
-    resp = model.getBookByYearRating(catalog, year)
+    resp = model.getAccidentByDateSeverity(catalog, date)
     t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución consultar libros por año:",t1_stop-t1_start," segundos")   
+    print("Tiempo de ejecución consultar accidentes por fecha:",t1_stop-t1_start," segundos")   
     return resp
     
