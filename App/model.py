@@ -91,7 +91,7 @@ def addDateTree (catalog, row):
     if dateNode:
         severity = row['Severity']
         accidentCount = map.get(dateNode['severityMap'], severity, compareByKey)
-        if  severity:
+        if  accidentCount:
             accidentCount+=1
             map.put(dateNode['severityMap'], severity, accidentCount, compareByKey)
         else:
