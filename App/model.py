@@ -121,18 +121,18 @@ def selectBookTree (catalog, pos):
     """
     return tree.select(catalog['booksTitleTree'], pos) 
 
-def getBookByYearRating (catalog, year):
+def getAccidentsByDateSeverity (catalog, date):
     """
     Retorna la cantidad de libros para un año y con un rating dado
     """
-    yearElement=tree.get(catalog['yearsTree'], strToDate(year,'%Y'), greater)
+    dateElement=tree.get(catalog['dateTree'], strToDate(dateText,'%Y/%m/%d'), greater)
     response=''
-    if yearElement:
-        ratingList = map.keySet(yearElement['ratingMap'])
-        iteraRating=it.newIterator(ratingList)
-        while it.hasNext(iteraRating):
-            ratingKey = it.next(iteraRating)
-            response += 'Rating '+str(ratingKey) + ':' + str(map.get(yearElement['ratingMap'],ratingKey,compareByKey)) + '\n'
+    if dateElement:
+        severityList = map.keySet(dateElement['severityMap'])
+        iteraSev=it.newIterator(severityList)
+        while it.hasNext(iteraSev):
+            severityKey = it.next(iteraSev)
+            response += 'Severity '+str(severityKey) + ':' + str(map.get(dateElement['severityMap'],severityKey,compareByKey)) + '\n'
         return response
     return None
 
