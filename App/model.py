@@ -40,11 +40,9 @@ def newCatalog():
     """
     Inicializa el catálogo y retorna el catalogo inicializado.
     """
-    catalog = {'booksTitleTree':None,'yearsTree':None,'booksList':None}
+    catalog = {'dateTree':None}
     #implementación de Black-Red Tree (brt) por default
-    catalog['booksTitleTree'] = tree.newMap ()
-    catalog['yearsTree'] = tree.newMap ()
-    catalog['booksList'] = lt.newList("ARRAY_LIST")
+    catalog['dateTree'] = tree.newMap ()
     return catalog
 
 
@@ -71,36 +69,36 @@ def addBookTree (catalog, row):
     #catalog['booksTitleTree'] = tree.put(catalog['booksTitleTree'], int(book['book_id']), book, greater)
     catalog['booksTitleTree']  = tree.put(catalog['booksTitleTree'] , book['title'], book, greater)
 
-def newYear (year, row):
+def newDate (date, row):
     """
-    Crea una nueva estructura para almacenar los libros por año 
+    Crea una nueva estructura para almacenar los accidentes por fecha
     """
-    yearNode = {"year": year, "ratingMap":None,}
-    yearNode ['ratingMap'] = map.newMap(11,maptype='CHAINING')
-    intRating = round(float(row['average_rating']))
-    map.put(yearNode['ratingMap'],intRating, 1, compareByKey)
-    return yearNode
+    dateNode = {"date": date, "severityMap":None,}
+    dateNode ['severityMap'] = map.newMap(11, maptype='PROBING')
+    severity = row['Severity']
+    map.put(dateNode['severityMap'],severity, 1, compareByKey)
+    return dateNode
 
-def addYearTree (catalog, row):
+def addDateTree (catalog, row):
     """
-    Adiciona el libro al arbol anual key=original_publication_year
+    Adiciona el accidente al arbol por día key=Start_Time
     """
-    yearText= row['original_publication_year']
-    if row['original_publication_year']:
-        yearText=row['original_publication_year'][0:row['original_publication_year'].index('.')]     
-    year = strToDate(yearText,'%Y')
-    yearNode = tree.get(catalog['yearsTree'] , year, greater)
-    if yearNode:
-        intRating = round(float(row['average_rating']))
-        ratingCount = map.get(yearNode['ratingMap'], intRating, compareByKey)
-        if  ratingCount:
-            ratingCount+=1
-            map.put(yearNode['ratingMap'], intRating, ratingCount, compareByKey)
+    dateText= row['Start_Time']
+    if row['Start_Time']:
+        dateText=row['Start_Time'][0:row['Start_Time'].index(' ')]     
+    date = strToDate(dateText,'%Y/%m/%d')
+    dateNode = tree.get(catalog['dateTree'] , date, greater)
+    if dateNode:
+        severity = row['Severity']
+        accidentCount = map.get(dateNode['severityMap'], severity, compareByKey)
+        if  severity:
+            accidentCount+=1
+            map.put(dateNode['severityMap'], severity, accidentCount, compareByKey)
         else:
-            map.put(yearNode['ratingMap'], intRating, 1, compareByKey)
+            map.put(dateNode['severityMap'], severity, 1, compareByKey)
     else:
-        yearNode = newYear(year,row)
-        catalog['yearsTree']  = tree.put(catalog['yearsTree'] , year, yearNode, greater)
+        dateNode = newDate(date,row)
+        catalog['dateTree']  = tree.put(catalog['dateTree'] , date, dateNode, greater)
 
 # Funciones de consulta
 

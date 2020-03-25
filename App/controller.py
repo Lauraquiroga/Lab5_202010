@@ -54,25 +54,21 @@ def compareratings (movie1, movie2):
 
 # Funciones para la carga de datos 
 
-def loadBooks (catalog, sep=','):
+def loadAccidents (catalog, sep=','):
     """
     Carga los libros del archivo.  Por cada libro se toman sus autores y por 
     cada uno de ellos, se crea un arbol de autores, a dicho autor y una
     referencia al libro que se esta procesando.
     """
     t1_start = process_time() #tiempo inicial
-    booksfile = cf.data_dir + 'GoodReads/books.csv'
+    accidentsfile = cf.data_dir + 'us_accidents_small.csv'
     dialect = csv.excel()
     dialect.delimiter=sep
-    with open(booksfile, encoding="utf-8-sig") as csvfile:
+    with open(accidentsfile, encoding="utf-8-sig") as csvfile:
         spamreader = csv.DictReader(csvfile, dialect=dialect)
         for row in spamreader: 
-            # Se adiciona el libro a la lista de libros
-            model.addBookList(catalog, row)
-            # Se adiciona el libro al mapa de libros (key=title)
-            model.addBookTree(catalog, row)
-            # Se adiciona el libro al mapa de años y rating (key=year)
-            model.addYearTree(catalog, row)
+            # Se adiciona el accidente al mapa de fecha y severidad (key=date)
+            model.addDateTree(catalog, row)
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución carga libros:",t1_stop-t1_start," segundos")   
 
