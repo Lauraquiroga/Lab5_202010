@@ -86,7 +86,7 @@ def addDateTree (catalog, row):
     dateText= row['Start_Time']
     if row['Start_Time']:
         dateText=row['Start_Time'][0:row['Start_Time'].index(' ')]     
-    date = strToDate(dateText,'%Y/%m/%d')
+    date = strToDate(dateText,'%Y-%m-%d')
     dateNode = tree.get(catalog['dateTree'] , date, greater)
     if dateNode:
         severity = int(row['Severity'])
@@ -125,7 +125,7 @@ def getAccidentByDateSeverity (catalog, date):
     """
     Retorna la cantidad de libros para un año y con un rating dado
     """
-    dateElement=tree.get(catalog['dateTree'], strToDate(date,'%Y/%m/%d'), greater)
+    dateElement=tree.get(catalog['dateTree'], strToDate(date,'%Y-%m-%d'), greater)
     response=''
     if dateElement:
         severityList = map.keySet(dateElement['severityMap'])

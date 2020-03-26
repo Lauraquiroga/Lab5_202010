@@ -43,7 +43,8 @@ class RBTreeTest (unittest.TestCase):
         tree = omap.put (tree, 'M', 'Title 80', self.comparekeys)
         tree = omap.put (tree, 'P', 'Title 30', self.comparekeys)
         tree = omap.put (tree, 'L', 'Title 30', self.comparekeys)
-
+        print("\nRBT datos aleatorios")
+        self.assertEqual(omap.size(tree),10)
     
 
 
